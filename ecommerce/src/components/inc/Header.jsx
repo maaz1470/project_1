@@ -1,11 +1,10 @@
+/* eslint-disable no-unused-vars */
 import { Link } from 'react-router-dom';
 import { useCart } from 'react-use-cart';
 import Logo from './../../assets/images/logo.svg';
 
 export default function Header(){
     const {isEmpty,totalUniqueItems, totalItems } = useCart();
-    console.log(isEmpty)
-    console.log(totalUniqueItems)
     return (
         <>
             <header className="py-4 shadow-sm bg-white">

@@ -246,10 +246,17 @@ class ProductController extends Controller
 
     public function getSingleProduct($url){
         $product = Product::select('id','name','slug','category_id','brand_id','status','sell_price as price','price as original_price','quantity','product_sku as sku','description','product_image','meta_title','meta_description')->where('slug',$url)->get()->first();
-        return Response()->json([
-            'status'    => 200,
-            'product'   => $product
-        ]);
+        if(!$product){
+            return Response()->json([
+                'status'    => 404,
+                'message'   => 'Product Not found'
+            ]);
+        }else{
+            return Response()->json([
+                'status'    => 200,
+                'product'   => $product
+            ]);
+        }
     }
 
 

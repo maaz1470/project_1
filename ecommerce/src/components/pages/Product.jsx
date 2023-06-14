@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import axios from 'axios'
 import parse from 'html-react-parser'
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useCart } from 'react-use-cart'
 import { root as home_url } from '../hook/useFileLocation'
 import Product3 from './../../assets/images/products/product3.jpg'
@@ -60,12 +61,18 @@ export default function Product(){
     }
 
     const {url} = useParams();
+
+    const navigate = useNavigate();
     
     useEffect(() => {
         axios.get(`/api/get-single-product/${url}`).then(response => {
             if(response){
                 if(response.data.status === 200){
                     setProduct(response.data.product)
+                }else if(response.data.status === 404){
+                    navigate('/',{
+                        replace: true
+                    })
                 }
                 setLoading(false)
             }
