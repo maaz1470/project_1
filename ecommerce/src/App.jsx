@@ -7,7 +7,6 @@ import routes from './components/routes/routes'
 
 axios.defaults.baseURL = 'http://127.0.0.1:8000'
 
-
 function App() {
 
   return (

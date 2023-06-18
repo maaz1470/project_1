@@ -1,12 +1,54 @@
+import axios from "axios";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 export default function Login(){
+
+    const [customerData,setCustomerData] = useState({
+        email: '',
+        password: ''
+    })
+    const [remember,setRemember] = useState(false)
+
+    const handleChange = (e) => {
+        setCustomerData({
+            ...customerData,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    const changeRemember = (e) => {
+        if(remember === false){
+            setRemember(true)
+        }else{
+            setRemember(false)
+        }
+    }
+    
+    const loginSubmit = (e) => {
+        e.preventDefault()
+        if((customerData.email && customerData.password) != ''){
+            const data = {
+                email: customerData.email,
+                password: customerData.password,
+                remember: remember
+            }
+            axios.post('/api/customer-login',data).then(response => {
+                console.log(response)
+            })
+        }else{
+            Swal.fire('Error','All field is required', 'error')
+        }
+        
+    }
+
     return (
         <div className="contain py-16">
             <div className="max-w-lg mx-auto shadow px-6 py-7 rounded overflow-hidden">
                 <h2 className="text-2xl uppercase font-medium mb-1">Login</h2>
                 <p className="text-gray-600 mb-6 text-sm">welcome back customer</p>
-                <form action="#" method="post" autoComplete="off">
+                <form action="#" method="post" autoComplete="off" onSubmit={loginSubmit}>
                 <div className="space-y-2">
                     <div>
                     <label htmlFor="email" className="text-gray-600 mb-2 block">
@@ -16,6 +58,8 @@ export default function Login(){
                         type="email"
                         name="email"
                         id="email"
+                        onChange={handleChange}
+                        value={customerData.email}
                         className="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400"
                         placeholder="youremail.@domain.com"
                     />
@@ -28,6 +72,8 @@ export default function Login(){
                         type="password"
                         name="password"
                         id="password"
+                        onChange={handleChange}
+                        value={customerData.password}
                         className="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400"
                         placeholder="*******"
                     />
@@ -39,6 +85,8 @@ export default function Login(){
                         type="checkbox"
                         name="remember"
                         id="remember"
+                        onChange={changeRemember}
+                        checked={remember}
                         className="text-primary focus:ring-0 rounded-sm cursor-pointer"
                     />
                     <label

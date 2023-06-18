@@ -1,7 +1,9 @@
 import Login from "../pages/Auth/Login";
 import Profile from "../pages/Auth/Profile";
 import Register from "../pages/Auth/Register";
+import Verify from "../pages/Auth/Verify";
 import Cart from "../pages/Cart/Cart";
+import Checkout from "../pages/Checkout/Checkout";
 import Contact from "../pages/Contact/Contact";
 import Home from "../pages/Home";
 import Product from "../pages/Product";
@@ -44,6 +46,11 @@ const routes = [
         component: <Cart />
     },
     {
+        name: 'Checkout',
+        path: '/checkout',
+        component: <Checkout />
+    },
+    {
         name: 'Profile',
         path: '/profile',
         component: <Profile />
@@ -52,6 +59,11 @@ const routes = [
         name: 'Profile',
         path: '/contact',
         component: <Contact />
+    },
+    {
+        name: 'Verify',
+        path: '/verify-customer/:token',
+        component: <Verify />
     }
 ];
 
