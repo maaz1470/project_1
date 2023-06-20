@@ -56,8 +56,13 @@ const routes = [
         component: <Profile />
     },
     {
-        name: 'Profile',
+        name: 'Contact',
         path: '/contact',
+        component: <Contact />
+    },
+    {
+        name: 'Category',
+        path: '/category/:name',
         component: <Contact />
     },
     {

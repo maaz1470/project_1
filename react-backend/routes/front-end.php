@@ -8,4 +8,3 @@ Route::post('/customer-login',[CustomerController::class, 'login']);
 Route::post('/customer-registration',[CustomerController::class, 'register']);
 
 Route::get('/verify-customer/{token}',[CustomerController::class, 'verifyCustomer']);
-

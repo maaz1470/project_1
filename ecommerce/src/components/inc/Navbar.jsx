@@ -5,6 +5,7 @@ import Office from './../../assets/images/icons/office.svg'
 import Outdoor from './../../assets/images/icons/outdoor-cafe.svg'
 import Sofa from './../../assets/images/icons/sofa.svg'
 import Terrace from './../../assets/images/icons/terrace.svg'
+import { getItem } from '../hook/useCheckAuth'
 export default function Navbar(){
     return (
         <>
@@ -109,18 +110,26 @@ export default function Navbar(){
                     </Link>
                     </div>
                     <div className="flex justify-between">
-                        <Link
-                        to="/login"
-                        className="text-gray-200 hover:text-white transition mr-4"
-                        >
-                        Login
-                        </Link>
-                        <Link
-                        to="/register"
-                        className="text-gray-200 hover:text-white transition"
-                        >
-                        Register
-                        </Link>
+                    {
+                        getItem('token') ? <p className='text-gray-200 hover:text-white transition mr-4'>{getItem('name')}</p> : (
+                            <>
+
+                                <Link
+                                to="/login"
+                                className="text-gray-200 hover:text-white transition mr-4"
+                                >
+                                Login
+                                </Link>
+                                <Link
+                                to="/register"
+                                className="text-gray-200 hover:text-white transition"
+                                >
+                                Register
+                                </Link>
+                            </>
+                        )
+                    }
+                        
                     </div>
                 </div>
                 </div>

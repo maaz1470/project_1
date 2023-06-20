@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Link } from 'react-router-dom'
 import Category1 from './../../assets/images/category/category-1.jpg'
 export default function Category({data}){

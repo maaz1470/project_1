@@ -5,19 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Customer;
-use Hash;
-use Mail;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use App\Mail\CustomerVerification;
 use App\Models\CustomerVerification as Verify;
-use DB;
+use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use Auth;
 
 class CustomerController extends Controller
 {
 
-    public function __construct(){
-        $this->middleware('auth:api', ['except' => ['login','register']]);
-    }
     public function login(Request $request){
         $validator = Validator::make($request->all(),[
             'email'     => 'required|email|max:255',
@@ -29,6 +27,7 @@ class CustomerController extends Controller
                 'errors'    => $validator->errors()->all()
             ]);
         }
+
         $customer = Customer::where('email',$request->email)->get()->first();
         if($customer){
 
@@ -36,9 +35,13 @@ class CustomerController extends Controller
             if(Hash::check($request->password, $customer->password)){
                 if($customer->verify_at === 1){
                     if($customer->status == 1){
-                        if($request->remember){
-                            
-                        }
+                        $token = $customer->createToken($customer->email . '_customer',["user:customer"]);
+                        return Response()->json([
+                            'status'    => 200,
+                            'token'     => $token->plainTextToken,
+                            'name'      => $customer->name,
+                            'message'   => 'Login successfully'
+                        ]);
                     }else{
                         return Response()->json([
                             'status'    => 400,
@@ -59,6 +62,7 @@ class CustomerController extends Controller
             }
         }else{
             return Response()->json([
+                'status'    => 400,
                 'customer'  => 'Email or Password not matched'
             ]);
         }
@@ -76,10 +80,9 @@ class CustomerController extends Controller
         }
 
 
-        $customer = new User();
+        $customer = new Customer();
         $customer->name = $request->name;
         $customer->email = $request->email;
-        $customer->role_as = 9;
         $customer->password = Hash::make($request->password);
 
         if($customer->save()){

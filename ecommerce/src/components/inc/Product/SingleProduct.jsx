@@ -1,7 +1,18 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
+import { useCart } from "react-use-cart";
+import toastr from "toastr";
+import 'toastr/build/toastr.css';
+
 export default function SingleProduct(props){
-    const {image, link, name, normal_price, price} = props;
+    const {image, link, name, normal_price, price, el} = props;
+    const {addItem} = useCart();
+    const addCart = () => {
+      toastr.options.progressBar = true;
+      toastr.options.positionClass = 'toast-bottom-right';
+      toastr.options.debug = false;
+      addItem(el)
+    }
     return (
         <div className="bg-white shadow rounded overflow-hidden group">
             <div className="relative">
@@ -61,12 +72,12 @@ export default function SingleProduct(props){
                 <div className="text-xs text-gray-500 ml-3">(150)</div>
               </div>
             </div>
-            <a
-              href="#"
+            <button
+              onClick={() => addCart()}
               className="block w-full py-1 text-center text-white bg-primary border border-primary rounded-b hover:bg-transparent hover:text-primary transition"
             >
               Add to cart
-            </a>
+            </button>
         </div>
     )
 }

@@ -1,7 +1,12 @@
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable no-unused-vars */
 import axios from "axios";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import toastr from "toastr";
+import 'toastr/build/toastr.css'
+import { setItem } from "../../hook/useCheckAuth";
 
 export default function Login(){
 
@@ -34,8 +39,25 @@ export default function Login(){
                 password: customerData.password,
                 remember: remember
             }
+            toastr.options.positionClass = 'toast-bottom-right';
+            toastr.options.progressBar = true;
+            toastr.options.closeButton = true;
+            toastr.options.debug = false;
             axios.post('/api/customer-login',data).then(response => {
-                console.log(response)
+                if(response){
+                    if(response.data.status === 200){
+                        setItem('token',response.data.token)
+                        setItem('name',response.data.name)
+                        Swal.fire('Success',response.data.message,'success')
+                        setTimeout(() => {
+                            window.location.href = '/'
+                        },1000)
+                    }else if(response.data.status === 401){
+                        response.data.errors.forEach(el => toastr.error(el))
+                    }else if(response.data.status === 400){
+                        toastr.error(response.data.error)
+                    }
+                }
             })
         }else{
             Swal.fire('Error','All field is required', 'error')

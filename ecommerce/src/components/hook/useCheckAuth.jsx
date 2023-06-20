@@ -1,4 +1,9 @@
-// import axios from 'axios';
-// export var isActive = false;
+/* eslint-disable no-unused-vars */
+export const setItem = (name,value) => {
+    localStorage.setItem(name,value)
+}
 
-// axios.get('/')
+export const getItem = (name) => {
+    return localStorage.getItem(name);
+
+}

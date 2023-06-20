@@ -9,6 +9,7 @@ import Product3 from './../../assets/images/products/product3.jpg'
 import Product4 from './../../assets/images/products/product4.jpg'
 import Product5 from './../../assets/images/products/product5.jpg'
 import Product6 from './../../assets/images/products/product6.jpg'
+import { Link } from 'react-router-dom'
 export default function Product(){
     const [product, setProduct] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -165,7 +166,7 @@ export default function Product(){
                     </p>
                     <p className="space-x-2">
                         <span className="text-gray-800 font-semibold">Category: </span>
-                        <span className="text-gray-600">{product.category.name}</span>
+                        <Link to={`/category/${product.category.slug}`}><span className="text-gray-600">{product.category.name}</span></Link>
                     </p>
                     <p className="space-x-2">
                     <span className="text-gray-800 font-semibold">SKU: </span>

@@ -29,7 +29,7 @@
     "resize-observer-polyfill": "^1.5.1",
     "simplebar": "^6.2.4",
     "sort-by": "^0.0.2",
-    "sweetalert2": "^11.4.8",
+    "sweetalert2": "^11.7.12",
     "toastr": "^2.1.4",
     "waves": "^0.1.1"
   },

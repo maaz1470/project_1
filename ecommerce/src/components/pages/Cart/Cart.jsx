@@ -56,9 +56,9 @@ export default function Whitelist(){
                                         <img loading="lazy" src={`${root}/product/${el.product_image}`} alt="product" />
                                     </div>
                                     <div className="cart_cont">
-                                        <a href="product-view.html">
+                                        <Link to={`/product/${el.slug}`}>
                                             <h5>{el.name}</h5>
-                                        </a>
+                                        </Link>
                                         <p className="text-primary font-medium">{el.price}</p>
                                         {/* <p className="size mb-0">Size: M</p> */}
                                     </div>
