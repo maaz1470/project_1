@@ -1,3 +1,5 @@
 export default function Category(){
-    return 
+    return (
+        <h1>Hello World</h1>
+    )
 }
