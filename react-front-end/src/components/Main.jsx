@@ -24,6 +24,7 @@ import AllPages from './backend/pages/page/AllPages'
 import AddProduct from './backend/pages/product/AddProduct'
 import AllProduct from './backend/pages/product/AllProduct'
 import EditProduct from './backend/pages/product/EditProduct'
+import Order from './backend/pages/order/Order'
 axios.defaults.baseURL = 'http://127.0.0.1:8000'
 axios.interceptors.request.use(function(config){
 	const token = useGetUserId();
@@ -60,6 +61,9 @@ export default function Main(){
 							<Route path='' element={<AllProduct />} />
 							<Route path='add' element={<AddProduct />} />
 							<Route path='edit/:id' element={<EditProduct />} />
+						</Route>
+						<Route path='order' element={<Content />}>
+							<Route path='' element={<Order />} />
 						</Route>
 						<Route path='slider' element={<Content />}>
 							<Route path='' element={<Slider />} />

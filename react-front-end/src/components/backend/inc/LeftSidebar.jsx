@@ -33,6 +33,12 @@ export default function LeftSidebar(){
                   </Link>
                 </li>
                 <li>
+                  <Link to="/panel/order" className=" waves-effect">
+                    <i className="mdi mdi-calendar-outline" />
+                    <span>Order</span>
+                  </Link>
+                </li>
+                <li>
                   <Link to="/panel/slider" className=" waves-effect">
                     <i className="mdi mdi-calendar-outline" />
                     <span>Slider</span>
