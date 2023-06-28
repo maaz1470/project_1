@@ -1,0 +1,42 @@
+{
+  "name": "react-front-end",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^37.1.0",
+    "@ckeditor/ckeditor5-react": "^6.0.0",
+    "@tinymce/tinymce-react": "^4.3.0",
+    "apexcharts": "^3.38.0",
+    "axios": "^1.3.5",
+    "bootstrap": "^5.2.3",
+    "html-react-parser": "^4.0.0",
+    "jqvmap": "^1.0.1",
+    "localforage": "^1.10.0",
+    "match-sorter": "^6.3.1",
+    "metismenu": "^3.0.7",
+    "node-waves": "^0.7.6",
+    "react": "^18.2.0",
+    "react-apexcharts": "^1.4.0",
+    "react-dom": "^18.2.0",
+    "react-quill": "^0.0.2",
+    "react-router-dom": "^6.10.0",
+    "resize-observer-polyfill": "^1.5.1",
+    "simplebar": "^6.2.4",
+    "sort-by": "^0.0.2",
+    "sweetalert2": "^11.7.12",
+    "toastr": "^2.1.4",
+    "waves": "^0.1.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "@vitejs/plugin-react-swc": "^3.0.0",
+    "vite": "^4.2.0"
+  }
+}
