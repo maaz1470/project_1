@@ -10,21 +10,23 @@ import 'toastr/build/toastr.css'
 import { setItem, AuthCheck } from "../../hook/useCheckAuth";
 
 export default function Login(){
-    const navigate = useNavigate();
+    
+    const [customerData,setCustomerData] = useState({
+        email: '',
+        password: ''
+    })
+    const [remember,setRemember] = useState(false)
     const authCheck = AuthCheck();
 
 
     if(authCheck != undefined){
         if(authCheck){
+            const navigate = useNavigate();
             return navigate('/customer/checkout',{
                 replace: true
             })
         }else{
-            const [customerData,setCustomerData] = useState({
-                email: '',
-                password: ''
-            })
-            const [remember,setRemember] = useState(false)
+            
         
             const handleChange = (e) => {
                 setCustomerData({

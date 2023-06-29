@@ -8,7 +8,7 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\PageController;
-
+use App\Http\Controllers\OrderController;
 Route::post('/register',[AuthController::class, 'register'])->name('auth.register');
 Route::post('/login',[AuthController::class, 'login'])->name('auth.login');
 Route::middleware(['auth:sanctum'])->group(function(){
@@ -66,6 +66,12 @@ Route::middleware(['auth:sanctum'])->group(function(){
 
     // Page Routes
     Route::post('save-page',[PageController::class, 'savePage']);
+
+
+
+    // Order View
+
+    Route::get('orders',[OrderController::class, 'orders']);
 
 
 

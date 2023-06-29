@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Checkout;
 use Auth;
 use App\Models\Order;
+use DB;
 
 class OrderController extends Controller
 {
@@ -61,5 +62,18 @@ class OrderController extends Controller
             ]);
         }
 
+    }
+
+    public function orders(){
+        $orders = DB::table('orders')->select('customers.name as customer_name','products.name as product_name','orders.*')
+                                     ->join('customers','orders.customer_id','customers.id')
+                                     ->join('products','orders.product_id','products.id')
+                                     ->get();
+
+        return Response()->json([
+            'status'    => 200,
+            'orders'    => $orders
+        ]);
+        
     }
 }

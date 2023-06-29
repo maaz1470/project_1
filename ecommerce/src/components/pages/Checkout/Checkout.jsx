@@ -60,6 +60,26 @@ export default function Checkout(){
                     if(response.data.status === 200){
                         Swal.fire('Success',response.data.message,'success')
                         emptyCart()
+
+                        setBillingData({
+                            ...billingData,
+                            firstName: '',
+                            lastName: '',
+                            company: '',
+                            country: '',
+                            streetAddress: '',
+                            city: '',
+                            zipCode: '',
+                            phoneNumber: '',
+                            email: '',
+                            products: ''
+                        })
+                        
+                        navigate('/customer/profile',{
+                            replace: true
+                        })
+                        
+
                     }else if(response.data.status === 401){
                         response.data.errors.forEach(el => toastr.error(el))
                     }else if(response.data.status === 402){

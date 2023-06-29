@@ -1,21 +1,34 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable no-unused-vars */
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from 'react-use-cart';
 import Logo from './../../assets/images/logo.svg';
 import { useState } from 'react';
 import {root} from './../hook/useFileLocation'
 import axios from 'axios';
-import { AuthCheck } from '../hook/useCheckAuth';
+import { AuthCheck, getItem } from '../hook/useCheckAuth';
+import Swal from 'sweetalert2';
 export default function Header(){
     const [isOpen, setIsOpen] = useState(true)
     const {isEmpty,totalUniqueItems, totalItems, items, cartTotal, removeItem } = useCart();
     const authCheck = AuthCheck();
-    console.log(authCheck)
+    const navigate = useNavigate();
     const customerLogout = (e) => {
         e.preventDefault();
         axios.post('/api/customerLogout').then(response => {
-            console.log(response)
+            if(response){
+                if(response.data.status === 200){
+                    Swal.fire('Success',response.data.message,'success');
+                    localStorage.removeItem('name')
+                    setTimeout(() => {
+                        window.location.href = '/'
+                    },1000)
+                }else{
+                    Swal.fire('Error','Something went wrong. Please try again.')
+                }
+            }
+        }).catch(error => {
+            Promise.reject(error)
         })
     }
     return (

@@ -5,8 +5,16 @@ import Office from './../../assets/images/icons/office.svg'
 import Outdoor from './../../assets/images/icons/outdoor-cafe.svg'
 import Sofa from './../../assets/images/icons/sofa.svg'
 import Terrace from './../../assets/images/icons/terrace.svg'
-import { getItem } from '../hook/useCheckAuth'
+import { AuthCheck, getItem } from '../hook/useCheckAuth'
 export default function Navbar(){
+
+    const authCheck = AuthCheck();
+    var userName = false;
+    console.log(`navbar auth: ${authCheck}`)
+    if(authCheck != undefined){
+        userName = true
+    }
+
     return (
         <>
             <nav className="bg-gray-800">
@@ -111,7 +119,7 @@ export default function Navbar(){
                     </div>
                     <div className="flex justify-between">
                     {
-                        getItem('token') ? <p className='text-gray-200 hover:text-white transition mr-4'>{getItem('name')}</p> : (
+                        userName ? authCheck ? getItem('token') ? <p className='text-gray-200 hover:text-white transition mr-4'>{getItem('name')}</p> : (
                             <>
 
                                 <Link
@@ -127,7 +135,23 @@ export default function Navbar(){
                                 Register
                                 </Link>
                             </>
-                        )
+                        ) : (
+                            <>
+
+                                <Link
+                                to="/login"
+                                className="text-gray-200 hover:text-white transition mr-4"
+                                >
+                                Login
+                                </Link>
+                                <Link
+                                to="/register"
+                                className="text-gray-200 hover:text-white transition"
+                                >
+                                Register
+                                </Link>
+                            </>
+                        ) : ''
                     }
                         
                     </div>
