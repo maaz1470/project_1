@@ -10,6 +10,7 @@ import Product4 from './../../assets/images/products/product4.jpg'
 import Product5 from './../../assets/images/products/product5.jpg'
 import Product6 from './../../assets/images/products/product6.jpg'
 import { Link } from 'react-router-dom'
+import Loading from '../inc/Loader'
 export default function Product(){
     const [product, setProduct] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -82,7 +83,7 @@ export default function Product(){
     },[])
 
     if(loading){
-        return '';
+        return <Loading />;
     }
 
 

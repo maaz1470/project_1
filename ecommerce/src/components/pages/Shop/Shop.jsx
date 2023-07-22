@@ -1,9 +1,36 @@
+import { useEffect, useState } from "react";
 import SingleProduct from "../../inc/Product/SingleProduct";
 import Product1 from './../../../assets/images/products/product1.jpg';
 import Product2 from './../../../assets/images/products/product2.jpg';
 import Product3 from './../../../assets/images/products/product3.jpg';
 import Product4 from './../../../assets/images/products/product4.jpg';
+import axios from "axios";
+import { root } from "../../hook/useFileLocation";
+import Loader from "../../inc/Loader";
 export default function Shop(){
+
+    const [products, setProducts] = useState([]);
+    const [categories, setCategories] = useState([]);
+    const [brands, setBrands] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        axios.get('/api/get-shop-page-product').then(response => {
+            if(response){
+                if(response.data.status === 200){
+                    setProducts(response.data.products)
+                    setCategories(response.data.categories)
+                    setBrands(response.data.brands)
+                }
+                setLoading(false)
+            }
+        });
+    },[])
+
+    if(loading){
+        return <Loader />
+    }
+
     return (
         <>
             <div className="container grid md:grid-cols-4 grid-cols-2 gap-6 pt-4 pb-16 items-start">
@@ -359,66 +386,25 @@ export default function Shop(){
                         Categories
                         </h3>
                         <div className="space-y-2">
-                        <div className="flex items-center">
-                            <input
-                            type="checkbox"
-                            name="cat-1"
-                            id="cat-1"
-                            className="text-primary focus:ring-0 rounded-sm cursor-pointer"
-                            />
-                            <label
-                            htmlFor="cat-1"
-                            className="text-gray-600 ml-3 cusror-pointer"
-                            >
-                            Bedroom
-                            </label>
-                            <div className="ml-auto text-gray-600 text-sm">(15)</div>
-                        </div>
-                        <div className="flex items-center">
-                            <input
-                            type="checkbox"
-                            name="cat-2"
-                            id="cat-2"
-                            className="text-primary focus:ring-0 rounded-sm cursor-pointer"
-                            />
-                            <label
-                            htmlFor="cat-2"
-                            className="text-gray-600 ml-3 cusror-pointer"
-                            >
-                            Sofa
-                            </label>
-                            <div className="ml-auto text-gray-600 text-sm">(9)</div>
-                        </div>
-                        <div className="flex items-center">
-                            <input
-                            type="checkbox"
-                            name="cat-3"
-                            id="cat-3"
-                            className="text-primary focus:ring-0 rounded-sm cursor-pointer"
-                            />
-                            <label
-                            htmlFor="cat-3"
-                            className="text-gray-600 ml-3 cusror-pointer"
-                            >
-                            Office
-                            </label>
-                            <div className="ml-auto text-gray-600 text-sm">(21)</div>
-                        </div>
-                        <div className="flex items-center">
-                            <input
-                            type="checkbox"
-                            name="cat-4"
-                            id="cat-4"
-                            className="text-primary focus:ring-0 rounded-sm cursor-pointer"
-                            />
-                            <label
-                            htmlFor="cat-4"
-                            className="text-gray-600 ml-3 cusror-pointer"
-                            >
-                            Outdoor
-                            </label>
-                            <div className="ml-auto text-gray-600 text-sm">(10)</div>
-                        </div>
+                            {
+                                categories.map((el,index) => (
+                                    <div key={index} className="flex items-center">
+                                        <input
+                                        type="checkbox"
+                                        name="cat-1"
+                                        id="cat-1"
+                                        className="text-primary focus:ring-0 rounded-sm cursor-pointer"
+                                        />
+                                        <label
+                                        htmlFor="cat-1"
+                                        className="text-gray-600 ml-3 cusror-pointer"
+                                        >
+                                        {el.name}
+                                        </label>
+                                        <div className="ml-auto text-gray-600 text-sm">(15)</div>
+                                    </div>
+                                ))
+                            }
                         </div>
                     </div>
                     <div className="pt-4">
@@ -633,15 +619,10 @@ export default function Shop(){
                     </div>
                     </div>
                     <div className="grid md:grid-cols-3 grid-cols-2 gap-6">
-                        <SingleProduct image={Product1} link="/product/product_name" name="Guyer Chair" normal_price="$45.00" price="$55.90" />
-                        <SingleProduct image={Product2} link="/product/product_name" name="Couple Sofa" normal_price="$45.00" price="$55.90" />
-                        <SingleProduct image={Product1} link="/product/product_name" name="Mattrass X" normal_price="$45.00" price="$55.90" />
-                        <SingleProduct image={Product4} link="/product/product_name" name="Bed King Size" normal_price="$45.00" price="$55.90" />
-                        <SingleProduct image={Product2} link="/product/product_name" name="Couple Sofa" normal_price="$45.00" price="$55.90" />
-                        <SingleProduct image={Product3} link="/product/product_name" name="Mattrass X" normal_price="$45.00" price="$55.90" />
-                        <SingleProduct image={Product2} link="/product/product_name" name="Couple Sofa" normal_price="$45.00" price="$55.90" />
-                        <SingleProduct image={Product4} link="/product/product_name" name="Bed King Size" normal_price="$45.00" price="$55.90" />
-                        <SingleProduct image={Product4} link="/product/product_name" name="Bed King Size" normal_price="$45.00" price="$55.90" />
+                        {
+                            products.map(el => <SingleProduct el={el} key={el.id} image={`${root}/product/${el.product_image}`} link={`/product/${el.slug}`} name={el.name} normal_price={`${el.sell_price}$`} price={`${el.price}$`} />)
+                        }
+                        
                     </div>
                 </div>
                 {/* ./products */}

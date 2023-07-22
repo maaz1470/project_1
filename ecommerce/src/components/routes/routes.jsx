@@ -9,6 +9,7 @@ import Home from "../pages/Home";
 import Product from "../pages/Product";
 import Shop from "../pages/Shop/Shop";
 import Whitelist from "../pages/Whitelist/Whitelist";
+import Category from '../pages/Category/Category'
 const routes = [
     {
         name: 'Home',
@@ -62,8 +63,8 @@ const routes = [
     },
     {
         name: 'Category',
-        path: '/category/:name',
-        component: <Contact />
+        path: '/category/:slug',
+        component: <Category />
     },
     {
         name: 'Verify',

@@ -39,7 +39,7 @@ export default function Order(){
                 <td>{el.product_name}</td>
                 <td>*{el.quantity}</td>
                 <td>
-                    <Link to={`edit/${el.id}`} className="btn btn-info"><i className="fa fa-eye" aria-hidden="true"></i></Link>
+                    <Link to={`view/${el.id}`} className="btn btn-info"><i className="fa fa-eye" aria-hidden="true"></i></Link>
                     <a href="" onClick={(e) => categoryDelete(e)} className="btn btn-danger"><i className="fas fa-trash    "></i></a>
                 </td>
             </tr>
@@ -51,9 +51,7 @@ export default function Order(){
             <div className="col-lg-12">
                 <div className="card">
                     <div className="card-body">
-                        <h4 className="card-title">All Categories
-                            <Link to={'/panel/category/add'} className="btn btn-success float-end">Add Category</Link>
-                        </h4>
+                        <h4 className="card-title">Orders</h4>
 
                         <div className="table-responsive">
                             <table className="table mb-0">

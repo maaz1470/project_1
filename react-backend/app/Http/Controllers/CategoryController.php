@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Category;
-
+use DB;
 class CategoryController extends Controller
 {
 
@@ -142,6 +142,27 @@ class CategoryController extends Controller
             'status'        => 200,
             'categories'    => $categories
         ]);
+    }
+
+
+    public function getCategoryPageProducts($slug){
+        $category = Category::where('slug',$slug)->get()->first();
+        if($category){
+            $products = DB::table('products')->join('categories','products.category_id','categories.id')
+                                         ->where('categories.id',$category->id)
+                                         ->select('categories.name as category_name', 'products.name as product_name','products.slug as product_slug','products.*','sell_price as price','price as original_price','product_sku as sku')
+                                         ->get();
+            return Response()->json([
+                'status'    => 200,
+                'products'  => $products
+            ]);
+        }else{
+            return Response()->json([
+                'status'    => 404,
+                'message'   => 'Category not found'
+            ]); 
+        }
+        
     }
 
     
